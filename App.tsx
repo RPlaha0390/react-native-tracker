@@ -13,6 +13,7 @@ import { AccountStackParamList } from './src/screens/Account/types';
 import { AuthStackParamList } from './src/screens/Auth/types';
 import { TrackCreateStackParamList } from './src/screens/TrackCreate/types';
 import { TrackStackParamList } from './src/screens/TrackStack/types';
+import { Provider as AuthProvider } from './src/context/AuthContext';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const TrackStack = createStackNavigator<TrackStackParamList>();
@@ -53,39 +54,41 @@ const App = () => {
   };
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        {userToken ? (
-          <Tabs.Navigator>
-            <Tabs.Screen
-              name="Account"
-              component={AccountStackScreen}
-              options={{
-                title: 'Create Account'
-              }}
-            />
-            <Tabs.Screen
-              name="TrackCreate"
-              component={TrackCreateStackScreen}
-            />
-            <Tabs.Screen name="Tracks" component={TrackStackScreen} />
-          </Tabs.Navigator>
-        ) : (
-          <AuthStack.Navigator initialRouteName="SignIn">
-            <AuthStack.Screen
-              name="SignIn"
-              component={SignInScreen}
-              options={{ headerShown: false }}
-            />
-            <AuthStack.Screen
-              name="SignUp"
-              component={SignUpScreen}
-              options={{ title: 'Sign Up' }}
-            />
-          </AuthStack.Navigator>
-        )}
-      </NavigationContainer>
-    </PaperProvider>
+    <AuthProvider>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          {userToken ? (
+            <Tabs.Navigator>
+              <Tabs.Screen
+                name="Account"
+                component={AccountStackScreen}
+                options={{
+                  title: 'Create Account'
+                }}
+              />
+              <Tabs.Screen
+                name="TrackCreate"
+                component={TrackCreateStackScreen}
+              />
+              <Tabs.Screen name="Tracks" component={TrackStackScreen} />
+            </Tabs.Navigator>
+          ) : (
+            <AuthStack.Navigator initialRouteName="SignIn">
+              <AuthStack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{ headerShown: false }}
+              />
+              <AuthStack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{ title: 'Sign Up' }}
+              />
+            </AuthStack.Navigator>
+          )}
+        </NavigationContainer>
+      </PaperProvider>
+    </AuthProvider>
   );
 };
 
