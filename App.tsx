@@ -17,7 +17,7 @@ import {
   Provider as AuthProvider,
   Context as AuthContext
 } from './src/context/AuthContext';
-import SplashScreen from './src/screens/Splash/Splash';
+import SplashScreen from './src/screens/Splash/SplashScreen';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const TrackStack = createStackNavigator<TrackStackParamList>();
