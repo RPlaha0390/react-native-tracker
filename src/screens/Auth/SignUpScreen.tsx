@@ -1,11 +1,13 @@
-import React, { useState, useContext, ContextType } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { Title, TextInput, Button, Theme, withTheme } from 'react-native-paper';
+import React, { useContext, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Theme, withTheme } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParamList } from './types';
 import Spacer from '../../components/Spacer/Spacer';
 import { Context as AuthContext } from '../../context/AuthContext';
 import { AuthContextProps } from '../../context/createDataContext';
+import TextLink from '../../components/TextLink/TextLink';
+import AuthForm from './components/AuthForm';
 
 type ProfileScreenNavigationProp = StackNavigationProp<AuthStackParamList>;
 
@@ -15,53 +17,31 @@ interface Props {
 }
 
 const SignUpScreen = ({ navigation, theme }: Props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { state, actions } = useContext<AuthContextProps>(AuthContext);
   const { colors } = theme;
 
-  console.log(state);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () =>
+      actions.clearError()
+    );
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
+      <AuthForm
+        headerText="Sign up to Tracker"
+        buttonText="Sign up"
+        errorMessage={state.errorMessage}
+        onSubmit={actions.signUp}
+      />
       <Spacer>
-        <Title>Sign Up </Title>
-      </Spacer>
-      <Spacer>
-        <TextInput
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </Spacer>
-      <Spacer>
-        <TextInput
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-        />
-      </Spacer>
-      <Spacer marginVertical={0}>
-        {state.errorMessage ? (
-          <Text style={styles.errorMessage}>{state.errorMessage}</Text>
-        ) : null}
-      </Spacer>
-      <Spacer>
-        <Button
-          style={[styles.button, { backgroundColor: colors.primary }]}
-          onPress={() => actions.signUpAction({ email, password })}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </Button>
-      </Spacer>
-      <Spacer>
-        <Button onPress={() => navigation.push('SignIn')}>
+        <TextLink
+          onPress={() => navigation.push('SignIn')}
+          style={{ color: colors.primary }}>
           Already have an account? Sign In
-        </Button>
+        </TextLink>
       </Spacer>
     </View>
   );
@@ -72,16 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginBottom: 200
-  },
-  button: {
-    padding: 7,
-    backgroundColor: 'transparent'
-  },
-  buttonText: {
-    color: 'white'
-  },
-  errorMessage: {
-    color: 'red'
   }
 });
 

@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-export interface CreateSignUpParams {
+export interface AuthParams {
   email: string;
   password: string;
 }

@@ -2,7 +2,7 @@ import React, { useReducer, createContext } from 'react';
 import { RootState, Action } from './AuthContext';
 
 interface Bound {
-  [key: string]: ({}: {}) => {};
+  [key: string]: (param?: any) => {};
 }
 
 export interface AuthContextProps {
@@ -17,7 +17,7 @@ export default (
 ) => {
   const Context = createContext<AuthContextProps>({
     state: {
-      isSignedIn: false,
+      token: null,
       errorMessage: ''
     },
     actions: {}

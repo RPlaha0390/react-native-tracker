@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AccountScreen from './src/screens/Account/AccountScreen';
 import SignInScreen from './src/screens/Auth/SignInScreen';
 import SignUpScreen from './src/screens/Auth/SignUpScreen';
@@ -13,7 +13,11 @@ import { AccountStackParamList } from './src/screens/Account/types';
 import { AuthStackParamList } from './src/screens/Auth/types';
 import { TrackCreateStackParamList } from './src/screens/TrackCreate/types';
 import { TrackStackParamList } from './src/screens/TrackStack/types';
-import { Provider as AuthProvider } from './src/context/AuthContext';
+import {
+  Provider as AuthProvider,
+  Context as AuthContext
+} from './src/context/AuthContext';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const TrackStack = createStackNavigator<TrackStackParamList>();
@@ -41,8 +45,8 @@ const AccountStackScreen = () => (
 );
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState('');
+  const [token, setToken] = useState<string | null>(null);
+
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -53,12 +57,26 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
+    const fetchToken = async () => {
+      try {
+        const userToken = await AsyncStorage.getItem('token');
+        setToken(userToken);
+      } catch (err) {
+        // Restoring token failed
+      }
+    };
+
+    fetchToken();
+  }, []);
+
   return (
     <AuthProvider>
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          {userToken ? (
-            <Tabs.Navigator>
+          {token ? (
+            <Tabs.Navigator initialRouteName="TrackCreate">
               <Tabs.Screen
                 name="Account"
                 component={AccountStackScreen}
@@ -73,7 +91,7 @@ const App = () => {
               <Tabs.Screen name="Tracks" component={TrackStackScreen} />
             </Tabs.Navigator>
           ) : (
-            <AuthStack.Navigator initialRouteName="SignIn">
+            <AuthStack.Navigator initialRouteName="SignUp">
               <AuthStack.Screen
                 name="SignIn"
                 component={SignInScreen}
@@ -82,7 +100,7 @@ const App = () => {
               <AuthStack.Screen
                 name="SignUp"
                 component={SignUpScreen}
-                options={{ title: 'Sign Up' }}
+                options={{ headerShown: false }}
               />
             </AuthStack.Navigator>
           )}
