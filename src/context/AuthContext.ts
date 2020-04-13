@@ -10,7 +10,8 @@ export interface RootState {
 export type Action =
   | { type: 'error_found'; payload: string }
   | { type: 'clear_error' }
-  | { type: 'sign_in'; payload: string };
+  | { type: 'sign_in'; payload: string }
+  | { type: 'sign_out' };
 
 type Dispatch = ({}: Action) => void;
 
@@ -22,6 +23,8 @@ const authReducer = (state: RootState, action: Action) => {
       return { ...state, errorMessage: '' };
     case 'sign_in':
       return { errorMessage: '', token: action.payload };
+    case 'sign_out':
+      return { token: null, errorMessage: '' };
     default:
       return state;
   }
@@ -66,8 +69,9 @@ const signIn = (dispatch: Dispatch) => async ({
   }
 };
 
-const signOut = (dispatch: Dispatch) => {
-  return () => {};
+const signOut = (dispatch: Dispatch) => async () => {
+  await AsyncStorage.removeItem('token');
+  dispatch({ type: 'sign_out' });
 };
 
 const clearError = (dispatch: Dispatch) => () => {

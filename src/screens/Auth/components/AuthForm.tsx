@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
   TextInput,
   Button,
-  Title,
   Theme,
   Text,
-  withTheme
+  withTheme,
+  Headline
 } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import Spacer from '../../../components/Spacer/Spacer';
@@ -32,7 +32,7 @@ const AuthForm = ({
   return (
     <>
       <Spacer>
-        <Title>{headerText}</Title>
+        <Headline>{headerText}</Headline>
       </Spacer>
       <Spacer>
         <TextInput

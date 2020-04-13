@@ -1,8 +1,17 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Headline } from 'react-native-paper';
+import SafeAreaView from 'react-native-safe-area-view';
+import Spacer from '../../components/Spacer/Spacer';
 
 const TrackCreateScreen = () => {
-  return <Text>TrackCreateScreen</Text>;
+  return (
+    <SafeAreaView forceInset={{ top: 'always' }}>
+      <Spacer>
+        <Headline>TrackCreateScreen</Headline>
+      </Spacer>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({});

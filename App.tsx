@@ -82,12 +82,15 @@ const App = () => {
               name="Account"
               component={AccountStackScreen}
               options={{
-                title: 'Create Account'
+                title: 'Account'
               }}
             />
             <Tabs.Screen
               name="TrackCreate"
               component={TrackCreateStackScreen}
+              options={{
+                title: 'Create Track'
+              }}
             />
             <Tabs.Screen name="Tracks" component={TrackStackScreen} />
           </Tabs.Navigator>
