@@ -27,6 +27,13 @@ const authReducer = (state: RootState, action: Action) => {
   }
 };
 
+const restoreToken = (dispatch: Dispatch) => async () => {
+  const token = await AsyncStorage.getItem('token');
+  if (token) {
+    dispatch({ type: 'sign_in', payload: token });
+  }
+};
+
 const signUp = (dispatch: Dispatch) => async ({
   email,
   password
@@ -69,6 +76,6 @@ const clearError = (dispatch: Dispatch) => () => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signUp, signIn, signOut, clearError },
+  { signUp, signIn, signOut, clearError, restoreToken },
   { token: null, errorMessage: '' }
 );

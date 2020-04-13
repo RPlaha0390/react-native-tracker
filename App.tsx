@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AccountScreen from './src/screens/Account/AccountScreen';
 import SignInScreen from './src/screens/Auth/SignInScreen';
 import SignUpScreen from './src/screens/Auth/SignUpScreen';
@@ -17,12 +17,13 @@ import {
   Provider as AuthProvider,
   Context as AuthContext
 } from './src/context/AuthContext';
-import AsyncStorage from '@react-native-community/async-storage';
+import SplashScreen from './src/screens/Splash/Splash';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const TrackStack = createStackNavigator<TrackStackParamList>();
 const TrackCreateStack = createStackNavigator<TrackCreateStackParamList>();
 const AccountStack = createStackNavigator<AccountStackParamList>();
+const SplashStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 const TrackStackScreen = () => (
@@ -45,7 +46,8 @@ const AccountStackScreen = () => (
 );
 
 const App = () => {
-  const [token, setToken] = useState<string | null>(null);
+  const { state } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   const theme = {
     ...DefaultTheme,
@@ -58,56 +60,63 @@ const App = () => {
   };
 
   useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
-    const fetchToken = async () => {
-      try {
-        const userToken = await AsyncStorage.getItem('token');
-        setToken(userToken);
-      } catch (err) {
-        // Restoring token failed
-      }
-    };
-
-    fetchToken();
-  }, []);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, [isLoading]);
 
   return (
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        {isLoading ? (
+          <SplashStack.Navigator>
+            <SplashStack.Screen
+              name="Splash"
+              component={SplashScreen}
+              options={{ headerShown: false }}
+            />
+          </SplashStack.Navigator>
+        ) : state.token ? (
+          <Tabs.Navigator initialRouteName="TrackCreate">
+            <Tabs.Screen
+              name="Account"
+              component={AccountStackScreen}
+              options={{
+                title: 'Create Account'
+              }}
+            />
+            <Tabs.Screen
+              name="TrackCreate"
+              component={TrackCreateStackScreen}
+            />
+            <Tabs.Screen name="Tracks" component={TrackStackScreen} />
+          </Tabs.Navigator>
+        ) : (
+          <AuthStack.Navigator initialRouteName="SignUp">
+            <AuthStack.Screen
+              name="SignIn"
+              component={SignInScreen}
+              options={{ headerShown: false }}
+            />
+            <AuthStack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{ headerShown: false }}
+            />
+          </AuthStack.Navigator>
+        )}
+      </NavigationContainer>
+    </PaperProvider>
+  );
+};
+
+const AppWrapper = () => {
+  // Renders the provider, so the context will be accessible from App.
+  return (
     <AuthProvider>
-      <PaperProvider theme={theme}>
-        <NavigationContainer>
-          {token ? (
-            <Tabs.Navigator initialRouteName="TrackCreate">
-              <Tabs.Screen
-                name="Account"
-                component={AccountStackScreen}
-                options={{
-                  title: 'Create Account'
-                }}
-              />
-              <Tabs.Screen
-                name="TrackCreate"
-                component={TrackCreateStackScreen}
-              />
-              <Tabs.Screen name="Tracks" component={TrackStackScreen} />
-            </Tabs.Navigator>
-          ) : (
-            <AuthStack.Navigator initialRouteName="SignUp">
-              <AuthStack.Screen
-                name="SignIn"
-                component={SignInScreen}
-                options={{ headerShown: false }}
-              />
-              <AuthStack.Screen
-                name="SignUp"
-                component={SignUpScreen}
-                options={{ headerShown: false }}
-              />
-            </AuthStack.Navigator>
-          )}
-        </NavigationContainer>
-      </PaperProvider>
+      <App />
     </AuthProvider>
   );
 };
 
-export default App;
+export default AppWrapper;
