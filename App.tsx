@@ -17,10 +17,6 @@ import {
   Provider as AuthProvider,
   Context as AuthContext
 } from './src/context/AuthContext';
-import {
-  Provider as LocationProvider,
-  Context as LocationContext
-} from './src/context/LocationContext';
 import SplashScreen from './src/screens/Splash/SplashScreen';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
@@ -120,11 +116,9 @@ const App = () => {
 const AppWrapper = () => {
   // Renders the provider, so the context will be accessible from App.
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </LocationProvider>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   );
 };
 
