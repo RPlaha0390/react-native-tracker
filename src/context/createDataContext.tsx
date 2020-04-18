@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from 'react';
-import { RootState, Action } from './AuthContext';
+import { RootState, Action } from './types';
 
 interface Bound {
   [key: string]: (param?: any) => {};

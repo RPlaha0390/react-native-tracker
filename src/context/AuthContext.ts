@@ -1,19 +1,8 @@
 import createDataContext from './createDataContext';
 import api, { AuthParams } from '../api/services/auth';
 import AsyncStorage from '@react-native-community/async-storage';
-
-export interface RootState {
-  token: null | string;
-  errorMessage: string;
-}
-
-export type Action =
-  | { type: 'error_found'; payload: string }
-  | { type: 'clear_error' }
-  | { type: 'sign_in'; payload: string }
-  | { type: 'sign_out' };
-
-type Dispatch = ({}: Action) => void;
+import { Dispatch } from 'react';
+import { Action, RootState } from './types';
 
 const authReducer = (state: RootState, action: Action) => {
   switch (action.type) {
@@ -30,14 +19,14 @@ const authReducer = (state: RootState, action: Action) => {
   }
 };
 
-const restoreToken = (dispatch: Dispatch) => async () => {
+const restoreToken = (dispatch: Dispatch<Action>) => async () => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
     dispatch({ type: 'sign_in', payload: token });
   }
 };
 
-const signUp = (dispatch: Dispatch) => async ({
+const signUp = (dispatch: Dispatch<Action>) => async ({
   email,
   password
 }: AuthParams) => {
@@ -53,7 +42,7 @@ const signUp = (dispatch: Dispatch) => async ({
   }
 };
 
-const signIn = (dispatch: Dispatch) => async ({
+const signIn = (dispatch: Dispatch<Action>) => async ({
   email,
   password
 }: AuthParams) => {
@@ -69,12 +58,12 @@ const signIn = (dispatch: Dispatch) => async ({
   }
 };
 
-const signOut = (dispatch: Dispatch) => async () => {
+const signOut = (dispatch: Dispatch<Action>) => async () => {
   await AsyncStorage.removeItem('token');
   dispatch({ type: 'sign_out' });
 };
 
-const clearError = (dispatch: Dispatch) => () => {
+const clearError = (dispatch: Dispatch<Action>) => () => {
   dispatch({ type: 'clear_error' });
 };
 

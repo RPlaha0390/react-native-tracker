@@ -1,46 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
-import MapView, { Polyline } from 'react-native-maps';
-import Geolocation, {
-  GeolocationError,
-  GeolocationResponse
-} from '@react-native-community/geolocation';
+import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
+import MapView, { Circle } from 'react-native-maps';
+import { Context as LocationContext } from '../../../context/LocationContext';
+import { ActivityIndicator } from 'react-native-paper';
 
 const Map = () => {
-  const [locationError, setLocationError] = useState<null | GeolocationError>(
-    null
-  );
-  const [location, setLocation] = useState<null | GeolocationResponse>(null);
-  let points = [];
+  const {
+    state: { currentLocation }
+  } = useContext(LocationContext);
 
-  for (let index = 0; index < 20; index++) {
-    points.push({
-      latitude: 51.48058 + index * 0.001,
-      longitude: -0.39383 + index * 0.001
-    });
-  }
-
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      locationInfo => setLocation(locationInfo),
-      err => setLocationError(err)
-    );
-  }, []);
-
-  console.log(location);
-  console.log(locationError);
-
-  return (
+  return currentLocation ? (
     <MapView
       style={styles.map}
+      showsUserLocation
+      followsUserLocation
       initialRegion={{
-        latitude: 51.48058,
-        latitudeDelta: 0.02,
-        longitude: -0.39383,
-        longitudeDelta: 0.02
-      }}>
-      <Polyline coordinates={points} />
-    </MapView>
+        ...currentLocation.coords,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01
+      }}
+    />
+  ) : (
+    <ActivityIndicator size={50} />
   );
 };
 
