@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation, {
+  GeolocationError,
+  GeolocationResponse
+} from '@react-native-community/geolocation';
 
 const Map = () => {
+  const [locationError, setLocationError] = useState<null | GeolocationError>(
+    null
+  );
+  const [location, setLocation] = useState<null | GeolocationResponse>(null);
   let points = [];
 
   for (let index = 0; index < 20; index++) {
@@ -13,7 +20,15 @@ const Map = () => {
     });
   }
 
-  Geolocation.getCurrentPosition(info => console.log(info));
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      locationInfo => setLocation(locationInfo),
+      err => setLocationError(err)
+    );
+  }, []);
+
+  console.log(location);
+  console.log(locationError);
 
   return (
     <MapView

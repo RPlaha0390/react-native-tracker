@@ -70,6 +70,10 @@ PODS:
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
+  - Permission-LocationAlways (2.1.2):
+    - RNPermissions
+  - Permission-LocationWhenInUse (2.1.2):
+    - RNPermissions
   - RCTRequired (0.62.1)
   - RCTTypeSafety (0.62.1):
     - FBLazyVector (= 0.62.1)
@@ -304,6 +308,8 @@ PODS:
     - React
   - RNGestureHandler (1.6.1):
     - React
+  - RNPermissions (2.1.2):
+    - React
   - RNReanimated (1.8.0):
     - React
   - RNScreens (2.4.0):
@@ -339,6 +345,8 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (~> 0.33.1)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -367,6 +375,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -398,6 +407,10 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-LocationAlways:
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -448,6 +461,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -474,6 +489,8 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
+  Permission-LocationAlways: 5f8a9ffe42bc2df8962cd955354cf57cb0663411
+  Permission-LocationWhenInUse: cfd0d39a1c8ab2e9aeb0a1460800f85f74705404
   RCTRequired: e291538a455f5ad1afc2139a4288990be0cadd46
   RCTTypeSafety: 8b6237185765dd9a03a3647807e08864105b1f95
   React: 7b33e15fab929c47ac9c3c94c409258b13cfe452
@@ -499,12 +516,13 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 453cd7c335ec9ba3b877e27d02238956b76f3268
   RNCMaskedView: 4383c3140f1235391fd6029968c166f09ddd0973
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
+  RNPermissions: a96580116f7894146552e92b000ac30bf1661947
   RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
   RNScreens: b5c0e1b2b04512919e78bd3898e144a157ce2363
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Yoga: 50fb6eb13d2152e7363293ff603385db380815b1
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 7377bcc75f25f1b49669411a2a6f7535577fa77d
+PODFILE CHECKSUM: 67835919bb3593493f2fbe74fb4286d41e5ec224
 
 COCOAPODS: 1.8.4
