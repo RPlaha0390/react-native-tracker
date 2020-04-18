@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 
 const Map = () => {
   let points = [];
@@ -11,6 +12,8 @@ const Map = () => {
       longitude: -0.39383 + index * 0.001
     });
   }
+
+  Geolocation.getCurrentPosition(info => console.log(info));
 
   return (
     <MapView

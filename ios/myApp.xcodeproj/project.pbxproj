@@ -19,6 +19,7 @@
 		3C94A79978DDA90D6FF9A403 /* libPods-myApp-myAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE83DFEB2E2D863F4FCBE5D /* libPods-myApp-myAppTests.a */; };
 		757BB5D34215E7BE11304469 /* libPods-myApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A8DC40BD61E452DE63EB33 /* libPods-myApp.a */; };
 		DE3E1C022AB463044D8FB43B /* libPods-myApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 527B8572172C94E3162CC9AA /* libPods-myApp-tvOS.a */; };
+		F1A75BB5244B0E91005CA93A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A75BB4244B0E91005CA93A /* MapKit.framework */; };
 		F8375E64349CD773EC2FD851 /* libPods-myApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 765581480BBFD95C542DE35F /* libPods-myApp-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EEF72F24CD45373CD996E606 /* Pods-myApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-myApp-tvOSTests/Pods-myApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F1A75BB4244B0E91005CA93A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F8EA4A125409188D1390569F /* Pods-myApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-myApp-tvOS/Pods-myApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		FAE83DFEB2E2D863F4FCBE5D /* libPods-myApp-myAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-myApp-myAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1A75BB5244B0E91005CA93A /* MapKit.framework in Frameworks */,
 				757BB5D34215E7BE11304469 /* libPods-myApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,13 +151,13 @@
 				EEF72F24CD45373CD996E606 /* Pods-myApp-tvOSTests.debug.xcconfig */,
 				E14338183F09F46A6B1C382C /* Pods-myApp-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F1A75BB4244B0E91005CA93A /* MapKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				33A8DC40BD61E452DE63EB33 /* libPods-myApp.a */,
