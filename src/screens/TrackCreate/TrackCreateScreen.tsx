@@ -5,7 +5,6 @@ import SafeAreaView from 'react-native-safe-area-view';
 import Spacer from '../../components/Spacer/Spacer';
 import Map from './containers/Map';
 import Geolocation, {
-  GeolocationError,
   GeolocationResponse
 } from '@react-native-community/geolocation';
 import { Context as LocationContext } from '../../context/LocationContext';
