@@ -16,9 +16,7 @@ const startRecording = (dispatch: Dispatch<Action>) => {};
 const stopRecording = (dispatch: Dispatch<Action>) => {};
 const addLocation = (dispatch: Dispatch<Action>) => (
   location: GeolocationResponse
-) => {
-  return dispatch({ type: 'add_current_location', payload: location });
-};
+) => dispatch({ type: 'add_current_location', payload: location });
 
 export const { Context, Provider } = createDataContext(
   locationReducer,

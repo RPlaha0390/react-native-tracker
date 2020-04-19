@@ -4,32 +4,14 @@ import { Headline } from 'react-native-paper';
 import SafeAreaView from 'react-native-safe-area-view';
 import Spacer from '../../components/Spacer/Spacer';
 import Map from './containers/Map';
-import Geolocation, {
-  GeolocationResponse
-} from '@react-native-community/geolocation';
 import { Context as LocationContext } from '../../context/LocationContext';
+import useLocation from '../../hooks/useLocation';
+import { useIsFocused } from '@react-navigation/native';
 
 const TrackCreateScreen = () => {
   const { actions } = useContext(LocationContext);
-  const [location, setLocation] = useState<null | GeolocationResponse>(null);
-  const watchPositionOptions = {
-    enableHighAccuracy: false,
-    distanceFilter: 10,
-    timeout: 1000
-  };
-
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      locationInfo => setLocation(locationInfo),
-      err => Alert.alert('Error', err.message)
-    );
-
-    Geolocation.watchPosition(
-      success => actions.addLocation(success),
-      error => console.log('error', error),
-      watchPositionOptions
-    );
-  }, []);
+  const isFocused = useIsFocused();
+  useLocation(isFocused, actions.addLocation);
 
   return (
     <SafeAreaView forceInset={{ top: 'always' }}>
