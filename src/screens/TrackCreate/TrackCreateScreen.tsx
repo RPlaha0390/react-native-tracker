@@ -7,6 +7,7 @@ import Map from './containers/Map';
 import { Context as LocationContext } from '../../context/LocationContext';
 import useLocation from '../../hooks/useLocation';
 import { useIsFocused } from '@react-navigation/native';
+import TrackForm from './components/TrackForm';
 
 const TrackCreateScreen = () => {
   const { actions } = useContext(LocationContext);
@@ -20,6 +21,9 @@ const TrackCreateScreen = () => {
       </Spacer>
       <Spacer>
         <Map />
+      </Spacer>
+      <Spacer>
+        <TrackForm />
       </Spacer>
     </SafeAreaView>
   );
