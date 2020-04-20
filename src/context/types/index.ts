@@ -4,8 +4,9 @@ export interface RootState {
   token?: null | string;
   errorMessage?: string;
   recording?: boolean;
-  locations?: [];
+  locations?: GeolocationResponse[];
   currentLocation?: null | GeolocationResponse;
+  name?: string;
 }
 
 export type Action =
@@ -15,4 +16,6 @@ export type Action =
   | { type: 'sign_out' }
   | { type: 'add_current_location'; payload: GeolocationResponse }
   | { type: 'start_recording' }
-  | { type: 'stop_recording' };
+  | { type: 'stop_recording' }
+  | { type: 'add_location'; payload: GeolocationResponse }
+  | { type: 'change_name'; payload: string };
