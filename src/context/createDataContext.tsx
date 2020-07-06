@@ -2,7 +2,7 @@ import React, { useReducer, createContext } from 'react';
 import { RootState, Action } from './types';
 
 interface Bound {
-  [key: string]: (param?: any) => {};
+  [key: string]: (param1?: any, param2?: any) => {};
 }
 
 export interface AuthContextProps {

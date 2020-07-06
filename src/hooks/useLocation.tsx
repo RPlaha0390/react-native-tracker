@@ -1,40 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Geolocation, {
   GeolocationResponse
 } from '@react-native-community/geolocation';
 import { Alert } from 'react-native';
 
 const useLocation = (
-  shouldTrack: boolean,
-  watchPositionCallback: () => void
+  shouldTrack: boolean | undefined,
+  watchPositionCallback: (location: GeolocationResponse) => void
 ) => {
-  const [location, setLocation] = useState<null | GeolocationResponse>(null);
-  const [watchId, setWatchId] = useState<number>(0);
-  const watchPositionOptions = {
-    enableHighAccuracy: false,
-    distanceFilter: 10,
-    timeout: 1000
-  };
-
   useEffect(() => {
-    if (shouldTrack) {
-      Geolocation.getCurrentPosition(
-        locationInfo => setLocation(locationInfo),
-        err => Alert.alert('Error', err.message)
-      );
+    let subscriber: number | null;
 
-      const subscriber = Geolocation.watchPosition(
+    const startWatching = () =>
+      Geolocation.watchPosition(
         watchPositionCallback,
         err => Alert.alert('Error', err.message),
-        watchPositionOptions
+        {
+          enableHighAccuracy: false,
+          distanceFilter: 10,
+          timeout: 1000
+        }
       );
 
-      setWatchId(subscriber);
-    } else {
-      Geolocation.clearWatch(watchId);
-      setWatchId(0);
+    if (shouldTrack) {
+      subscriber = startWatching();
     }
-  }, [shouldTrack]);
+
+    return () => {
+      if (subscriber) {
+        Geolocation.clearWatch(subscriber);
+        subscriber = null;
+      }
+    };
+  }, [shouldTrack, watchPositionCallback]);
+
+  return [];
 };
 
 export default useLocation;
